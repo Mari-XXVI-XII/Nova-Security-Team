@@ -8,28 +8,16 @@ import { CyberHeader } from './components/CyberHeader';
 import { AboutHero } from './components/AboutHero';
 import { ServicesSection } from './components/ServicesSection';
 import { CallToAction } from './components/CallToAction';
-import { SocialPostPreview } from './components/SocialPostPreview';
 import { DirectMessageModal } from './components/DirectMessageModal';
-import { teamData } from './data/teamData';
-import { ServiceItem, ViewMode } from './types';
+import { ServiceItem } from './types';
 import { 
   Sparkles, 
   Terminal, 
   ShieldCheck, 
-  Cpu, 
-  Send, 
-  Instagram, 
-  ArrowLeft,
-  Share2,
-  Lock,
-  Layers,
-  Square,
-  Smartphone,
-  MonitorPlay
+  ArrowLeft
 } from 'lucide-react';
 
 export default function App() {
-  const [viewMode, setViewMode] = useState<ViewMode>('interactive');
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [selectedServiceForModal, setSelectedServiceForModal] = useState<ServiceItem | null>(null);
 
@@ -57,7 +45,6 @@ export default function App() {
   const handleAnalyzeIdea = () => {
     if (!clientIdeaInput.trim()) return;
 
-    // Smart Matching for user idea
     const inputLower = clientIdeaInput.toLowerCase();
     let solution = 'تطبيق ذكي متكامل مع واجهات مستخدم متقدمة ونظام حماية عالي الكفاءة';
     let securityLevel = 'نظام تشفير متعدد الطبقات (Multi-Layer End-to-End Encryption)';
@@ -97,135 +84,121 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#070b14] text-slate-100 font-cairo selection:bg-cyan-500/30 selection:text-cyan-200">
       
-      {/* Header */}
+      {/* Clean Official Luxury Header */}
       <CyberHeader
-        currentView={viewMode}
-        onViewChange={(mode) => setViewMode(mode)}
-        onOpenExportModal={() => setViewMode('instagram-post')}
         onOpenContactModal={() => {
           setSelectedServiceForModal(null);
           setIsContactModalOpen(true);
         }}
       />
 
-      {/* Main Content Area based on selected View Mode */}
-      {viewMode === 'interactive' ? (
-        <main className="relative">
-          {/* Section 1: Top Hero (القسم العلوي - الرأسية) */}
-          <AboutHero
-            onScrollToServices={handleScrollToServices}
-            onOpenContact={() => {
-              setSelectedServiceForModal(null);
-              setIsContactModalOpen(true);
-            }}
-          />
+      <main className="relative">
+        {/* Section 1: Top Hero (القسم العلوي - الرأسية) */}
+        <AboutHero
+          onScrollToServices={handleScrollToServices}
+          onOpenContact={() => {
+            setSelectedServiceForModal(null);
+            setIsContactModalOpen(true);
+          }}
+        />
 
-          {/* Interactive Feature: "فكرة لديك؟ دعنا نحولها إلى واقع" Live Converter */}
-          <section className="py-8 px-4 sm:px-6 max-w-5xl mx-auto">
-            <div className="rounded-3xl p-6 sm:p-8 bg-gradient-to-r from-slate-900 via-slate-900/90 to-slate-950 border border-cyan-500/30 shadow-[0_0_30px_rgba(6,182,212,0.15)] text-right">
-              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-5 border-b border-slate-800 pb-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-cyan-950 border border-cyan-500/30 text-cyan-400">
-                    <Terminal className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg sm:text-xl font-bold text-white font-cairo">
-                      محاكي تحويل الأفكار إلى حلول ذكية وآمنة
-                    </h3>
-                    <p className="text-xs text-slate-400 font-tajawal">
-                      أدخل فكرتك وسيقترح عليك فريق NOVA البنية التقنية والأمنية المناسبة فوراً
-                    </p>
-                  </div>
+        {/* Interactive Feature: "فكرة لديك؟ دعنا نحولها إلى واقع" Live Converter */}
+        <section className="py-8 px-4 sm:px-6 max-w-5xl mx-auto">
+          <div className="rounded-3xl p-6 sm:p-8 bg-gradient-to-r from-slate-900 via-slate-900/90 to-slate-950 border border-cyan-500/30 shadow-[0_0_30px_rgba(6,182,212,0.15)] text-right">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-5 border-b border-slate-800 pb-4">
+              <div className="flex items-center gap-3">
+                <div className="p-2.5 rounded-xl bg-cyan-950 border border-cyan-500/30 text-cyan-400">
+                  <Terminal className="w-5 h-5" />
                 </div>
-                <span className="text-[11px] font-english px-3 py-1 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-500/20">
-                  NOVA ARCHITECTURE ENGINE
-                </span>
-              </div>
-
-              {/* Input Box */}
-              <div className="flex flex-col sm:flex-row gap-3 mb-4">
-                <input
-                  type="text"
-                  value={clientIdeaInput}
-                  onChange={(e) => setClientIdeaInput(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && handleAnalyzeIdea()}
-                  placeholder="اكتب فكرتك هنا (مثال: متجر الكتروني محمي، فحص أمان تطبيق، ورشة تدريب AI...)"
-                  className="flex-1 px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-white text-sm font-tajawal focus:outline-none focus:ring-1 focus:ring-cyan-400"
-                />
-                <button
-                  onClick={handleAnalyzeIdea}
-                  className="px-6 py-3 rounded-xl font-bold font-cairo text-sm bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 shadow-[0_0_15px_rgba(6,182,212,0.3)] transition-all shrink-0 flex items-center justify-center gap-2"
-                >
-                  <Sparkles className="w-4 h-4" />
-                  <span>تحليل الفكرة</span>
-                </button>
-              </div>
-
-              {/* Analyzed Result Box */}
-              {analyzedResponse && (
-                <div className="mt-5 p-5 rounded-2xl bg-slate-950/90 border border-cyan-400/40 animate-fade-in space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-emerald-400 flex items-center gap-1.5 font-tajawal">
-                      <ShieldCheck className="w-4 h-4" />
-                      خطة التنفيذ المقترحة من فريق NOVA:
-                    </span>
-                    <button
-                      onClick={() => {
-                        setSelectedServiceForModal(null);
-                        setIsContactModalOpen(true);
-                      }}
-                      className="text-xs text-cyan-400 hover:text-cyan-300 font-bold font-cairo flex items-center gap-1 underline underline-offset-4"
-                    >
-                      <span>راسلنا لتنفيذ هذه الخطة</span>
-                      <ArrowLeft className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
-                    <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
-                      <span className="text-slate-400 block mb-1 font-tajawal">الحل البرمجي الموصى به:</span>
-                      <p className="font-bold text-white font-tajawal">{analyzedResponse.solution}</p>
-                    </div>
-
-                    <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
-                      <span className="text-slate-400 block mb-1 font-tajawal">طبقة الأمان والحماية:</span>
-                      <p className="font-bold text-cyan-300 font-tajawal">{analyzedResponse.securityLevel}</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-2 flex-wrap pt-1 text-[11px] text-slate-400 font-tajawal">
-                    <span>الخدمات المرتبطة:</span>
-                    {analyzedResponse.servicesMatched.map((s, idx) => (
-                      <span key={idx} className="px-2.5 py-0.5 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-500/20">
-                        {s}
-                      </span>
-                    ))}
-                  </div>
+                <div>
+                  <h3 className="text-lg sm:text-xl font-bold text-white font-cairo">
+                    محاكي تحويل الأفكار إلى حلول ذكية وآمنة
+                  </h3>
+                  <p className="text-xs text-slate-400 font-tajawal">
+                    أدخل فكرتك وسيقترح عليك فريق NOVA البنية التقنية والأمنية المناسبة فوراً
+                  </p>
                 </div>
-              )}
+              </div>
+              <span className="text-[11px] font-english px-3 py-1 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-500/20">
+                NOVA ARCHITECTURE ENGINE
+              </span>
             </div>
-          </section>
 
-          {/* Section 2: Services (قسم الخدمات - الخانات الست) */}
-          <ServicesSection onSelectService={handleSelectService} />
+            {/* Input Box */}
+            <div className="flex flex-col sm:flex-row gap-3 mb-4">
+              <input
+                type="text"
+                value={clientIdeaInput}
+                onChange={(e) => setClientIdeaInput(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleAnalyzeIdea()}
+                placeholder="اكتب فكرتك هنا (مثال: متجر الكتروني محمي، فحص أمان تطبيق، ورشة تدريب AI...)"
+                className="flex-1 px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-white text-sm font-tajawal focus:outline-none focus:ring-1 focus:ring-cyan-400"
+              />
+              <button
+                onClick={handleAnalyzeIdea}
+                className="px-6 py-3 rounded-xl font-bold font-cairo text-sm bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 shadow-[0_0_15px_rgba(6,182,212,0.3)] transition-all shrink-0 flex items-center justify-center gap-2"
+              >
+                <Sparkles className="w-4 h-4" />
+                <span>تحليل الفكرة</span>
+              </button>
+            </div>
 
-          {/* Section 3: Call To Action & Footer (القسم السفلي - التواصل والختام) */}
-          <CallToAction
-            onOpenContactModal={() => {
-              setSelectedServiceForModal(null);
-              setIsContactModalOpen(true);
-            }}
-          />
-        </main>
-      ) : (
-        /* Poster / Story / Presentation Slide Export Canvas */
-        <main>
-          <SocialPostPreview
-            initialFormat={viewMode}
-            onClose={() => setViewMode('interactive')}
-          />
-        </main>
-      )}
+            {/* Analyzed Result Box */}
+            {analyzedResponse && (
+              <div className="mt-5 p-5 rounded-2xl bg-slate-950/90 border border-cyan-400/40 animate-fade-in space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-emerald-400 flex items-center gap-1.5 font-tajawal">
+                    <ShieldCheck className="w-4 h-4" />
+                    خطة التنفيذ المقترحة من فريق NOVA:
+                  </span>
+                  <button
+                    onClick={() => {
+                      setSelectedServiceForModal(null);
+                      setIsContactModalOpen(true);
+                    }}
+                    className="text-xs text-cyan-400 hover:text-cyan-300 font-bold font-cairo flex items-center gap-1 underline underline-offset-4"
+                  >
+                    <span>راسلنا لتنفيذ هذه الخطة</span>
+                    <ArrowLeft className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
+                  <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                    <span className="text-slate-400 block mb-1 font-tajawal">الحل البرمجي الموصى به:</span>
+                    <p className="font-bold text-white font-tajawal">{analyzedResponse.solution}</p>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                    <span className="text-slate-400 block mb-1 font-tajawal">طبقة الأمان والحماية:</span>
+                    <p className="font-bold text-cyan-300 font-tajawal">{analyzedResponse.securityLevel}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 flex-wrap pt-1 text-[11px] text-slate-400 font-tajawal">
+                  <span>الخدمات المرتبطة:</span>
+                  {analyzedResponse.servicesMatched.map((s, idx) => (
+                    <span key={idx} className="px-2.5 py-0.5 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-500/20">
+                      {s}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* Section 2: Services (قسم الخدمات - الخانات الست) */}
+        <ServicesSection onSelectService={handleSelectService} />
+
+        {/* Section 3: Call To Action & Footer (القسم السفلي - التواصل والختام) */}
+        <CallToAction
+          onOpenContactModal={() => {
+            setSelectedServiceForModal(null);
+            setIsContactModalOpen(true);
+          }}
+        />
+      </main>
 
       {/* Direct Contact & DM Modal */}
       <DirectMessageModal
