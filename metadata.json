@@ -1,0 +1,6 @@
+{
+  "name": "NOVA Security Team - من نحن",
+  "description": "تصميم فاخر وإعلان تفاعلي لصفحة فريق NOVA SECURITY TEAM للأنظمة الأمنية والحلول البرمجية",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
